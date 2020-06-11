@@ -25,7 +25,7 @@ public class Werknemer {
 
     @OneToMany(mappedBy = "chef", fetch = FetchType.LAZY)
     @OrderBy("voornaam, familienaam")
-    private Set<Werknemer> ondergeschikten;
+    private final Set<Werknemer> ondergeschikten = new LinkedHashSet<>();
 
     //jobtitel relationship
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -50,7 +50,6 @@ public class Werknemer {
         this.email = email;
         setJobtitel(jobtitel);
         setChef(chef);
-        this.ondergeschikten = new LinkedHashSet<>();
         this.salaris = salaris;
         this.password = password;
         this.rijksregisternr = rijksregisternr;
@@ -135,7 +134,6 @@ public class Werknemer {
         return toegevoegd;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -143,11 +141,11 @@ public class Werknemer {
 
         Werknemer werknemer = (Werknemer) o;
 
-        return email.toLowerCase().equals(werknemer.email.toLowerCase());
+        return rijksregisternr.equals(werknemer.rijksregisternr);
     }
 
     @Override
     public int hashCode() {
-        return email.toLowerCase().hashCode();
+        return rijksregisternr.hashCode();
     }
 }

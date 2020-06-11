@@ -2,29 +2,28 @@ package be.vdab.personeel.domain;
 
 import javax.persistence.*;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity @Table(name = "jobtitels")
-public class Jobtitle {
+public class Jobtitel {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String naam;
 
-    @OneToMany(mappedBy = "jobtitle", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "jobtitel", cascade = CascadeType.REMOVE)
     @OrderBy("voornaam, familienaam")
     private Set<Werknemer> werknemers = new LinkedHashSet<>();
 
     @Version
     private Long versie;
 
-    protected Jobtitle() {
+    protected Jobtitel() {
     }
 
-    public Jobtitle(String naam) {
+    public Jobtitel(String naam) {
         this.naam = naam;
     }
 
@@ -51,12 +50,12 @@ public class Jobtitle {
     //association with werknemers
     public boolean add(Werknemer werknemer){
         boolean toegevoegd = werknemers.add(werknemer);
-        Jobtitle oudeJobtitle = werknemer.getJobtitle();
-        if (oudeJobtitle !=null && oudeJobtitle != this){
-            oudeJobtitle.werknemers.remove(werknemer);
+        Jobtitel oudeJobtitel = werknemer.getJobtitel();
+        if (oudeJobtitel !=null && oudeJobtitel != this){
+            oudeJobtitel.werknemers.remove(werknemer);
         }
-        if (this != oudeJobtitle){
-            werknemer.setJobtitle(this);
+        if (this != oudeJobtitel){
+            werknemer.setJobtitel(this);
         }
         return toegevoegd;
     }
@@ -65,11 +64,11 @@ public class Jobtitle {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Jobtitle)) return false;
+        if (!(o instanceof Jobtitel)) return false;
 
-        Jobtitle jobtitle = (Jobtitle) o;
+        Jobtitel jobtitel = (Jobtitel) o;
 
-        return naam.toLowerCase().equals(jobtitle.naam.toLowerCase());
+        return naam.toLowerCase().equals(jobtitel.naam.toLowerCase());
     }
 
     @Override

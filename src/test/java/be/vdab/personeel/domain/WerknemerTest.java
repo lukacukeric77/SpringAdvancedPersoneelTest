@@ -2,6 +2,7 @@ package be.vdab.personeel.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.*;
 
 import java.math.BigDecimal;
@@ -18,30 +19,61 @@ class WerknemerTest {
 
     @BeforeEach
     void setUp() {
-
-        werknemer1 = new Werknemer("surnameNull", "nameNull",
-                "name@email.com", null, jobtitel1,  BigDecimal.ONE,
-                "zorro", 1234L, LocalDate.of(2000,01,01));
-        werknemer2 = new Werknemer("surnameSecond", "nameSecond",
-                "name2@email.com", werknemer1, jobtitel2, BigDecimal.ONE,
-                "zorro", 1234L, LocalDate.of(2000,01,01));
-        nogEenWerknemer2 = new Werknemer("surnameSecond", "nameSecond",
-                "name2@email.com",  werknemer1, jobtitel2, BigDecimal.ONE,
-                "zorro", 1234L, LocalDate.of(2000,01,01));
-        werknemer3 = new Werknemer("surnameThird", "nameThird",
-                "name3@email.com", werknemer1, jobtitel2, BigDecimal.ONE,
-                "zorro", 1234L, LocalDate.of(2000,01,01));
         jobtitel1 = new Jobtitel("testJob");
         jobtitel2 = new Jobtitel("testJob2");
+        werknemer1 = new Werknemer("surnameNull", "nameNull",
+                "name@email.com", 2345L, jobtitel1, BigDecimal.ONE, "zorro", null,
+                LocalDate.of(2000, 01, 01));
+        werknemer2 = new Werknemer("surnameSecond", "nameSecond",
+                "name2@email.com", 1234L, jobtitel2, BigDecimal.ONE, "zorro", werknemer1,
+                LocalDate.of(2000, 01, 01));
+        nogEenWerknemer2 = new Werknemer("surnameSecond", "nameSecond",
+                "name2@email.com", 1234L, jobtitel2, BigDecimal.ONE, "zorro", werknemer1,
+                LocalDate.of(2000, 01, 01));
+        werknemer3 = new Werknemer("surnameThird", "nameThird",
+                "name3@email.com", 5555L, jobtitel2, BigDecimal.ONE, "zorro", werknemer1,
+                LocalDate.of(2000, 01, 01));
     }
 
-//    @Test
-//    void oneChefCanHaveMoreSubordinates() {
-//        assertThat(werknemer1.getOndergeschikten()).contains(werknemer2, werknemer3);
-//    }
+    @Test
+    void oneChefCanHaveMoreSubordinates() {
+        assertThat(werknemer1.getOndergeschikten()).contains(werknemer2, werknemer3);
+    }
+
+    @Test
+    void oneSubordinateCanHaveOnlyOneBoss() {
+        assertThat(werknemer2.getChef()).isEqualTo(werknemer1);
+    }
 
     @Test
     void oneWerknemerHasOnlyOneJobtitle() {
         assertThat(werknemer1.getJobtitel()).isEqualTo(jobtitel1);
     }
+
+    @Test
+    void werknemersAreAlikeIfTheirHashcodeIsAlike() {
+        assertThat(werknemer2).isEqualTo(nogEenWerknemer2);
+    }
+
+    @Test
+    void werknemersAreNotAlikeIfTheirHashcodeDoNotMatch() {
+        assertThat(werknemer1).isNotEqualTo(werknemer2);
+    }
+
+    @Test
+    void sameWerknemersHaveSameHashcode() {
+        assertThat(werknemer2).hasSameHashCodeAs(nogEenWerknemer2);
+    }
+
+    @Test
+    void nullInSetterOfJobtitelThrowsNullPointerException() {
+        assertThatNullPointerException().isThrownBy(() -> werknemer1.setJobtitel(null));
+    }
+
+    @Test
+    void nullInSetterOfChefDoesNotThrowNullPointerException(){
+        werknemer2.setChef(null);
+        assertThat(werknemer2.getChef()).isNull();
+    }
+
 }

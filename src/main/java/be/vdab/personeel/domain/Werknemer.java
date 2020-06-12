@@ -43,16 +43,16 @@ public class Werknemer {
     }
 
     public Werknemer(String familienaam, String voornaam,
-                     String email, Werknemer chef, Jobtitel jobtitel, BigDecimal salaris,
-                     String password, Long rijksregisternr, LocalDate geboorte) {
+                     String email, Long rijksregisternr, Jobtitel jobtitel, BigDecimal salaris, String password, Werknemer chef,
+                     LocalDate geboorte) {
         this.familienaam = familienaam;
         this.voornaam = voornaam;
         this.email = email;
+        this.rijksregisternr = rijksregisternr;
         setJobtitel(jobtitel);
         setChef(chef);
         this.salaris = salaris;
         this.password = password;
-        this.rijksregisternr = rijksregisternr;
         this.geboorte = geboorte;
     }
 
@@ -116,7 +116,7 @@ public class Werknemer {
 
 
     public void setChef(Werknemer chef) {
-        if (!chef.getOndergeschikten().contains(this)) {
+        if (chef != null && !chef.getOndergeschikten().contains(this)) {
             chef.add(this);
         }
         this.chef = chef;

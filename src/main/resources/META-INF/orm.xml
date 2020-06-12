@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+                 version="2.1">
+    <named-query name="Werknemer.findCeo">
+        <query>
+            select w from Werknemer w
+            where w.chefid is null;
+        </query>
+    </named-query>
+    <named-query name="Werknemer.findByChefid">
+        <query>
+            select w from Werknemer w
+            where w.chefid = :id
+        </query>
+    </named-query>
+    <named-query name="Werknemer.algemeneOpslag">
+        <query>
+            update Werknemer w
+            set w.salaris = :nieuweSalaris
+        </query>
+    </named-query>
+</entity-mappings>

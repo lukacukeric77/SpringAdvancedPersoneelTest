@@ -31,7 +31,7 @@ class JpaDefaultWerknemerRepositoryTest extends AbstractTransactionalJUnit4Sprin
     @Test
     void findByChefId() {
         List<Werknemer> werknemer = repository.findByChefId(idOfTestWerknemer());
-        assertThat(super.countRowsInTableWhere(WERKNEMERS, "chefid = " + idOfTestWerknemer()));
+        assertThat(werknemer).hasSize(super.countRowsInTableWhere(WERKNEMERS, "chefid = " + idOfTestWerknemer()));
     }
 
     @Test

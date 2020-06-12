@@ -19,7 +19,7 @@ public class JpaDefaultWerknemerRepository implements WerknemerRepository{
     @Override
     public List<Werknemer> findByChefId(long chefId) {
         return manager.createNamedQuery("Werknemer.findByChefid", Werknemer.class)
-                .setParameter("id", chefId)
+                .setParameter("idOfChef", chefId)
                 .getResultList();
     }
 

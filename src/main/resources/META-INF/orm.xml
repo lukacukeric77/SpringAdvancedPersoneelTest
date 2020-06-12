@@ -6,13 +6,13 @@
     <named-query name="Werknemer.findCeo">
         <query>
             select w from Werknemer w
-            where w.chefid is null;
+            where w.chef is null
         </query>
     </named-query>
     <named-query name="Werknemer.findByChefid">
         <query>
             select w from Werknemer w
-            where w.chefid = :id
+            where w.chef.id = :idOfChef
         </query>
     </named-query>
     <named-query name="Werknemer.algemeneOpslag">

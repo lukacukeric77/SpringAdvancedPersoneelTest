@@ -33,7 +33,7 @@ public class Werknemer {
     private Jobtitel jobtitel;
 
     private BigDecimal salaris;
-    private String password;
+    private String paswoord;
     private LocalDate geboorte;
     private Long rijksregisternr;
     @Version
@@ -43,7 +43,7 @@ public class Werknemer {
     }
 
     public Werknemer(String familienaam, String voornaam,
-                     String email, Long rijksregisternr, Jobtitel jobtitel, BigDecimal salaris, String password, Werknemer chef,
+                     String email, Long rijksregisternr, Jobtitel jobtitel, BigDecimal salaris, String paswoord, Werknemer chef,
                      LocalDate geboorte) {
         this.familienaam = familienaam;
         this.voornaam = voornaam;
@@ -52,7 +52,7 @@ public class Werknemer {
         setJobtitel(jobtitel);
         setChef(chef);
         this.salaris = salaris;
-        this.password = password;
+        this.paswoord = paswoord;
         this.geboorte = geboorte;
     }
 
@@ -88,8 +88,8 @@ public class Werknemer {
         return salaris;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPaswoord() {
+        return paswoord;
     }
 
     public LocalDate getGeboorte() {

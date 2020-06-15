@@ -13,12 +13,13 @@
     <dt>Salaris</dt><dd th:text="*{salaris}"></dd>
     <dt>Jobtitel</dt><dd th:text="*{jobtitel.naam}"></dd>
     <dt>Geboorte</dt><dd th:text="*{geboorte}"></dd>
-    <dt th:if="${werknemer.chef} != null" th:object="${werknemer.chef}">Chef</dt><dd th:if="${werknemer.chef} != null">
-    <a th:href="@{/werknemer/{id}(id=${werknemer.chef.id})}" th:text="|${werknemer.chef.voornaam} ${werknemer.chef.familienaam}|"></a>
+    <dt th:if="${werknemer.chef} != null" th:object="${werknemer.chef}">Chef</dt>
+        <dd th:if="${werknemer.chef} != null">
+        <a th:href="@{/werknemer/{id}(id=${werknemer.chef.id})}" th:text="|${werknemer.chef.voornaam} ${werknemer.chef.familienaam}|"></a>
 </dd>
-    <dt>Ondergeschikten</dt><dd th:if="${werknemer.ondergeschikten !=null}" th:each="onder:${ondergeschikten}" th:object="${onder}">
-    <a th:href="@{/werknemer/{id}(id=${onder.id})}" th:text="|${onder.voornaam} ${onder.familienaam}|"></a>
-
+    <dt th:if="${werknemer.ondergeschikten} !=null">Ondergeschikten</dt>
+        <dd th:if="${werknemer.ondergeschikten !=null}" th:each="onder:${ondergeschikten}" th:object="${onder}">
+        <a th:href="@{/werknemer/{id}(id=${onder.id})}" th:text="|${onder.voornaam} ${onder.familienaam}|"></a>
 </dd>
     <dt>Foto</dt>
     <dd><img th:src="@{/images/{id}.jpg(id=${werknemer.id})}" th:alt="|${werknemer.voornaam} ${werknemer.familienaam}|"/></dd>

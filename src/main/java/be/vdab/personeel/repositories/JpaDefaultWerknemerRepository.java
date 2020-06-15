@@ -27,4 +27,9 @@ public class JpaDefaultWerknemerRepository implements WerknemerRepository{
     public Optional<Werknemer> findCeo() {
         return Optional.of(manager.createNamedQuery("Werknemer.findCeo", Werknemer.class).getSingleResult());
     }
+
+    @Override
+    public Optional<Werknemer> findById(long id) {
+        return Optional.ofNullable(manager.find(Werknemer.class, id));
+    }
 }

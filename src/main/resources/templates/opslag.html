@@ -15,7 +15,7 @@
       th:object="${opslagForm}">
     <label>Bedrag:
         <span th:errors="*{bedrag}"></span>
-        <input th:field="*{bedrag}" autofocus>
+        <input th:field="*{bedrag}" autofocus type="number" min="1">
         <button>Opslag</button>
     </label>
 </form>

@@ -5,7 +5,6 @@ import be.vdab.personeel.forms.OpslagForm;
 import be.vdab.personeel.services.JpaWerknemerServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -57,7 +56,7 @@ public class WerknemerController {
         if (errors.hasErrors()) {
             return new ModelAndView("opslag").addObject(werknemer);
         }
-        werknemer.opslag(form.getBedrag());
+        werknemerServices.opslag(werknemer.getId(), form.getBedrag());
         attributes.addAttribute("id", werknemer.getId());
         return new ModelAndView("redirect:/werknemer/{id}");
 

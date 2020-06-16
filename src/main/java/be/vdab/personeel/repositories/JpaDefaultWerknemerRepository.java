@@ -4,6 +4,7 @@ import be.vdab.personeel.domain.Werknemer;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 

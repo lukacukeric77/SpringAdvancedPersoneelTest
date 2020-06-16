@@ -22,7 +22,7 @@ class WerknemerTest {
         jobtitel1 = new Jobtitel("testJob");
         jobtitel2 = new Jobtitel("testJob2");
         werknemer1 = new Werknemer("surnameNull", "nameNull",
-                "name@email.com", 2345L, jobtitel1, BigDecimal.ONE, "zorro", null,
+                "name@email.com", 2345L, jobtitel1, BigDecimal.valueOf(100), "zorro", null,
                 LocalDate.of(2000, 01, 01));
         werknemer2 = new Werknemer("surnameSecond", "nameSecond",
                 "name2@email.com", 1234L, jobtitel2, BigDecimal.ONE, "zorro", werknemer1,
@@ -74,6 +74,29 @@ class WerknemerTest {
     void nullInSetterOfChefDoesNotThrowNullPointerException(){
         werknemer2.setChef(null);
         assertThat(werknemer2.getChef()).isNull();
+    }
+
+    //opslag
+
+    @Test
+    void opslag() {
+        werknemer1.opslag(BigDecimal.TEN);
+        assertThat(werknemer1.getSalaris()).isEqualByComparingTo("110");
+    }
+
+    @Test
+    void opslagWithNullThrows(){
+        assertThatNullPointerException().isThrownBy(()-> werknemer1.opslag(null));
+    }
+
+    @Test
+    void opslagWith0Throws(){
+        assertThatIllegalArgumentException().isThrownBy(() -> werknemer1.opslag(BigDecimal.ZERO));
+    }
+
+    @Test
+    void negativeOpslagThrows(){
+        assertThatIllegalArgumentException().isThrownBy(()-> werknemer1.opslag(BigDecimal.valueOf(-1)));
     }
 
 }

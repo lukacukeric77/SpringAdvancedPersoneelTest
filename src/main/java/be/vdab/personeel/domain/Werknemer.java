@@ -2,6 +2,8 @@ package be.vdab.personeel.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -147,5 +149,13 @@ public class Werknemer {
     @Override
     public int hashCode() {
         return rijksregisternr.hashCode();
+    }
+
+    public void opslag(BigDecimal ammount) {
+//        if (ammount.compareTo(BigDecimal.ZERO) <= 0) {
+//            throw new IllegalArgumentException();
+//        }
+        BigDecimal factor = BigDecimal.ONE.add(ammount.divide(BigDecimal.valueOf(100),2, RoundingMode.HALF_UP));
+        salaris = salaris.multiply(factor, new MathContext(2, RoundingMode.HALF_UP));
     }
 }

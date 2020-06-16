@@ -15,10 +15,4 @@
             where w.chef.id = :idOfChef
         </query>
     </named-query>
-    <named-query name="Werknemer.algemeneOpslag">
-        <query>
-            update Werknemer w
-            set w.salaris = :nieuweSalaris
-        </query>
-    </named-query>
 </entity-mappings>

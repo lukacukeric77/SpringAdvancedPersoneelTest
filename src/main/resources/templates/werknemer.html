@@ -24,6 +24,9 @@
     <dt>Foto</dt>
     <dd><img th:src="@{/images/{id}.jpg(id=${werknemer.id})}" th:alt="|${werknemer.voornaam} ${werknemer.familienaam}|"/></dd>
 </dl>
-
+<div th:if="${werknemer}!=null">
+<a th:href="@{/werknemer/{id}/opslag(id=${werknemer.id})}">Opslag</a>
+<a th:href="@{/rijksregisternummer/{id}(id=${werknemer.id})}">Rijksregisterenummer</a>
+</div>
 </body>
 </html>

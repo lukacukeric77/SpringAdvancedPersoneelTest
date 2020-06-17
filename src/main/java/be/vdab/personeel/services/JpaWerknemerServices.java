@@ -54,4 +54,9 @@ public class JpaWerknemerServices implements WerknemerServices {
             throw new WerknemerNotFoundException();
         }
     }
+
+    @Override
+    public List<Werknemer> findByJobtitelId(long jobtitelId) {
+        return repository.findByJobtitelId(jobtitelId);
+    }
 }

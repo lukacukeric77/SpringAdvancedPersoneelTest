@@ -33,4 +33,11 @@ public class JpaDefaultWerknemerRepository implements WerknemerRepository{
     public Optional<Werknemer> findById(long id) {
         return Optional.ofNullable(manager.find(Werknemer.class, id));
     }
+
+    @Override
+    public List<Werknemer> findByJobtitelId(long jobtitelId) {
+        return manager.createQuery("select w from Werknemer w where w.jobtitel.id = :jobtitel", Werknemer.class)
+                .setParameter("jobtitel", jobtitelId)
+                .getResultList();
+    }
 }

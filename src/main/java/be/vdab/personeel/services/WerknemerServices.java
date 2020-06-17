@@ -12,4 +12,5 @@ public interface WerknemerServices {
     Optional<Werknemer> findById(long id);
     void opslag(long id, BigDecimal percentage);
     void wijzigRijksregisternummer(long id, Long nummer);
+    List<Werknemer> findByJobtitelId(long jobtitelId);
 }

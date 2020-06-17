@@ -10,5 +10,6 @@ public interface WerknemerRepository {
     List<Werknemer> findByChefId(long chefId);
     Optional<Werknemer> findCeo();
     Optional<Werknemer> findById(long id);
+    List<Werknemer> findByJobtitelId(long jobtitelId);
 
 }

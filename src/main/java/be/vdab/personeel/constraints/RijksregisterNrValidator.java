@@ -26,18 +26,18 @@ public class RijksregisterNrValidator implements ConstraintValidator<Rijksregist
 
     @Override
     public boolean isValid(Long rijksregisterNr, ConstraintValidatorContext context) {
-        // not a matter of existence, but validity; hence, if it doesn't exist, this is not problem of the validator
+        // not a matter of existence, but validity; hence, if it doesn't exist, this is not problem of the validator, return true
         if (rijksregisterNr == null) {
             return true;
         }
-        //length of rijks is matter of validity: if rijks is lesser or bigger than 11 digits, drop it;
+        //length of rijks is matter of validity: if rijks is lesser or bigger than 11 digits, return false;
         if (String.valueOf(rijksregisterNr).length()!=11){
             return false;
         }
         // database retrieval and sorting of repositoryDateFragments
         String[] pieces = (repository.findById(identificatie.getId()).get().getGeboorte()).toString().split("-");
 
-        // checking for equality of year, month and day, first 6 numbers in rijks...
+        // checking for equality of year, month and day, first 6 numbers in rijks; if either of that does not fit, return false
         //.equals(repositoryDateFragment, StringifiedInputFragment)
 
         if (!Objects.equals(pieces[0].substring(2,4), String.valueOf(rijksregisterNr).substring(0,2))

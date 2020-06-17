@@ -44,4 +44,14 @@ public class JpaWerknemerServices implements WerknemerServices {
             throw new WerknemerNotFoundException();
         }
     }
+
+    @Override
+    public void wijzigRijksregisternummer(long id, Long nummer) {
+        Optional<Werknemer> optionalWerknemer = repository.findById(id);
+        if (optionalWerknemer.isPresent()){
+            optionalWerknemer.get().setRijksregisternr(nummer);
+        } else {
+            throw new WerknemerNotFoundException();
+        }
+    }
 }

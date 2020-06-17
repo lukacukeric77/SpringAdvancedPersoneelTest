@@ -11,4 +11,5 @@ public interface WerknemerServices {
     Optional<Werknemer> findCeo();
     Optional<Werknemer> findById(long id);
     void opslag(long id, BigDecimal percentage);
+    void wijzigRijksregisternummer(long id, Long nummer);
 }

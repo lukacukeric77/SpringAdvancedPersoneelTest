@@ -1,5 +1,8 @@
 package be.vdab.personeel.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -19,6 +22,12 @@ public class Werknemer {
     private String familienaam;
     private String voornaam;
     private String email;
+    private Long rijksregisternr;
+
+    //jobtitel relationship
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "jobtitelid")
+    private Jobtitel jobtitel;
 
     //self relation fields
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -29,15 +38,11 @@ public class Werknemer {
     @OrderBy("voornaam, familienaam")
     private final Set<Werknemer> ondergeschikten = new LinkedHashSet<>();
 
-    //jobtitel relationship
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "jobtitelid")
-    private Jobtitel jobtitel;
-
+    @NumberFormat(pattern = "#,##0.00")
     private BigDecimal salaris;
     private String paswoord;
+    @DateTimeFormat(style = "S-", pattern = "d-M-yy")
     private LocalDate geboorte;
-    private Long rijksregisternr;
     @Version
     private Long versie;
 
@@ -72,6 +77,15 @@ public class Werknemer {
 
     public String getEmail() {
         return email;
+    }
+
+    public Long getRijksregisternr() {
+        return rijksregisternr;
+    }
+
+    public void setRijksregisternr(Long rijksregisternr) {
+        if (rijksregisternr != null){
+        this.rijksregisternr = rijksregisternr;}
     }
 
     public Jobtitel getJobtitel() {
@@ -152,9 +166,9 @@ public class Werknemer {
     }
 
     public void opslag(BigDecimal ammount) {
-//        if (ammount.compareTo(BigDecimal.ZERO) <= 0) {
-//            throw new IllegalArgumentException();
-//        }
+        if (ammount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException();
+        }
         BigDecimal factor = BigDecimal.ONE.add(ammount.divide(BigDecimal.valueOf(100),2, RoundingMode.HALF_UP));
         salaris = salaris.multiply(factor, new MathContext(2, RoundingMode.HALF_UP));
     }

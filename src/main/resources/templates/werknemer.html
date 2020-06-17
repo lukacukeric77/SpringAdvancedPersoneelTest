@@ -10,9 +10,9 @@
     <dt>Voornaam</dt><dd th:text="*{voornaam}"></dd>
     <dt>Familienaam</dt><dd th:text="*{familienaam}"></dd>
     <dt>Email adres</dt><dd th:text="*{email}"></dd>
-    <dt>Salaris</dt><dd th:text="*{salaris}"></dd>
+    <dt>Salaris</dt><dd th:text="*{{salaris}}"></dd>
     <dt>Jobtitel</dt><dd th:text="*{jobtitel.naam}"></dd>
-    <dt>Geboorte</dt><dd th:text="*{geboorte}"></dd>
+    <dt>Geboorte</dt><dd th:text="*{{geboorte}}"></dd>
     <dt th:if="${werknemer.chef} != null" th:object="${werknemer.chef}">Chef</dt>
         <dd th:if="${werknemer.chef} != null">
         <a th:href="@{/werknemer/{id}(id=${werknemer.chef.id})}" th:text="|${werknemer.chef.voornaam} ${werknemer.chef.familienaam}|"></a>
@@ -26,7 +26,7 @@
 </dl>
 <div th:if="${werknemer}!=null">
 <a th:href="@{/werknemer/{id}/opslag(id=${werknemer.id})}">Opslag</a>
-<a th:href="@{/rijksregisternummer/{id}(id=${werknemer.id})}">Rijksregisterenummer</a>
+<a th:href="@{/werknemer/{id}/rijksregisternummer(id=${werknemer.id})}">Rijksregisterenummer</a>
 </div>
 </body>
 </html>

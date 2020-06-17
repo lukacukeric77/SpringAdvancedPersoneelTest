@@ -2,7 +2,9 @@ package be.vdab.personeel.controllers;
 
 import be.vdab.personeel.domain.Werknemer;
 import be.vdab.personeel.forms.OpslagForm;
+import be.vdab.personeel.forms.RijksregisternummerForm;
 import be.vdab.personeel.services.JpaWerknemerServices;
+import be.vdab.personeel.sessions.Identificatie;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -18,9 +21,11 @@ import java.util.Optional;
 public class WerknemerController {
 
     private final JpaWerknemerServices werknemerServices;
+    private final Identificatie identificatie;
 
-    public WerknemerController(JpaWerknemerServices werknemerServices) {
+    public WerknemerController(JpaWerknemerServices werknemerServices, Identificatie identificatie) {
         this.werknemerServices = werknemerServices;
+        this.identificatie = identificatie;
     }
 
     @GetMapping
@@ -34,6 +39,8 @@ public class WerknemerController {
         return processor(werknemerServices.findById(id));
     }
 
+
+    //opslag
 
     @GetMapping("{id}/opslag")
     public ModelAndView opslag(@PathVariable long id) {
@@ -61,6 +68,41 @@ public class WerknemerController {
         return new ModelAndView("redirect:/werknemer/{id}");
 
     }
+
+    //rijksretisternummer
+
+    @GetMapping("{id}/rijksregisternummer")
+    public ModelAndView rijksregisternummer(@PathVariable long id){
+        ModelAndView modelAndView = new ModelAndView("rijksregisternummer");
+        werknemerServices.findById(id)
+                .ifPresent(werknemer -> {
+                    identificatie.setId(werknemer.getId());
+                    modelAndView.addObject(werknemer).addObject(new RijksregisternummerForm(werknemer.getRijksregisternr()));}
+        );
+        return modelAndView;
+    }
+
+    @PostMapping("{id}/rijksregisternummer")
+    public ModelAndView rijksregisterNummer(@PathVariable long id,
+                                            @Valid RijksregisternummerForm form,
+                                            Errors errors,
+                                            HttpSession session,
+                                            RedirectAttributes attributes){
+        Optional<Werknemer> optionalWerknemer = werknemerServices.findById(id);
+        if (!optionalWerknemer.isPresent()){
+            return new ModelAndView("rijksregisternummer");
+        }
+        Werknemer werknemer = optionalWerknemer.get();
+        if (errors.hasErrors()){
+            return new ModelAndView("rijksregisternummer").addObject(werknemer);
+        }
+        werknemerServices.wijzigRijksregisternummer(werknemer.getId(), form.getRijksregisternummer());
+        session.invalidate();
+        attributes.addAttribute("id", werknemer.getId());
+        return new ModelAndView("redirect:/werknemer/{id}");
+    }
+
+    //secret methods
 
     private ModelAndView processor(Optional<Werknemer> optionalWerknemer) {
         ModelAndView modelAndView = new ModelAndView("werknemer");

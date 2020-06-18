@@ -1,5 +1,6 @@
 package be.vdab.personeel.domain;
 
+import be.vdab.personeel.constraints.RijksregisterNr;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 

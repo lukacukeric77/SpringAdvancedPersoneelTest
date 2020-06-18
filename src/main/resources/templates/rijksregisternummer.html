@@ -10,9 +10,9 @@
 <form th:if="${werknemer} != null" method="post"
       th:action="@{/werknemer/{id}/rijksregisternummer(id=${werknemer.id})}"
       th:object="${rijksregisternummerForm}">
-    <label>Rijksregisternummer::
+    <label>Rijksregisternummer:
         <span th:errors="*{rijksregisternummer}"></span>
-        <input th:field="*{rijksregisternummer}" autofocus>
+        <input th:field="*{rijksregisternummer}" autofocus required type="number">
         <button>Opslaan</button>
     </label>
 </form>

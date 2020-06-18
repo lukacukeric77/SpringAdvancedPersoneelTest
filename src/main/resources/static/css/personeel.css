@@ -5,3 +5,30 @@ body{
 h1{
     color: brown;
 }
+
+dd{
+    margin-left: 0;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+input{
+    display: block;
+}
+label button{
+    margin-top: 1em;
+}
+
+label span {
+    background-color: red;
+    border-bottom-right-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    box-shadow: 5px 5px #777777;
+    margin-left: 0.5em;
+    padding: 0.5em;
+    color: white;
+    font-weight: bold;
+}
+label span:empty {
+    display: none;
+}

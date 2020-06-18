@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -23,6 +24,7 @@ public class Werknemer {
     private String familienaam;
     private String voornaam;
     private String email;
+    @NotNull
     private Long rijksregisternr;
 
     //jobtitel relationship
@@ -170,7 +172,7 @@ public class Werknemer {
         if (ammount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException();
         }
-        BigDecimal factor = BigDecimal.ONE.add(ammount.divide(BigDecimal.valueOf(100),2, RoundingMode.HALF_UP));
-        salaris = salaris.multiply(factor, new MathContext(2, RoundingMode.HALF_UP));
+        BigDecimal factor = BigDecimal.ONE.add(ammount.divide(BigDecimal.valueOf(100)));
+        salaris = salaris.multiply(factor);
     }
 }

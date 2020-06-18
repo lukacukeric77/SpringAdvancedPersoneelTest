@@ -1,7 +1,6 @@
 package be.vdab.personeel.forms;
 
 import be.vdab.personeel.constraints.RijksregisterNr;
-
 import javax.validation.constraints.NotNull;
 
 public class RijksregisternummerForm {
@@ -13,7 +12,7 @@ public class RijksregisternummerForm {
         this.rijksregisternummer = rijksregisternummer;
     }
 
-    public long getRijksregisternummer() {
+    public Long getRijksregisternummer() {
         return rijksregisternummer;
     }
 }

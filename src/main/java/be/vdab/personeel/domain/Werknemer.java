@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "werknemers")
-@NamedEntityGraph(name = "Werknemer.withChefAndJobtitles", attributeNodes = { @NamedAttributeNode("chef"), @NamedAttributeNode("jobtitel")})
+@NamedEntityGraph(name = "Werknemer.withChefAndJobtitles", attributeNodes = @NamedAttributeNode("chef"))
 public class Werknemer {
 
     @Id

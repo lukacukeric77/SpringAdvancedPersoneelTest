@@ -18,7 +18,7 @@ public class JpaDefaultWerknemerRepository implements WerknemerRepository{
     }
 
     @Override
-    public List<Werknemer> findByChefId(long chefId) {
+    public List<Werknemer> findByChefId(long chefId) {                    //looks for ondergeschichten
         return manager.createNamedQuery("Werknemer.findByChefid", Werknemer.class)
                 .setParameter("idOfChef", chefId)
                 .setHint("javax.persistence.loadgraph", manager.createEntityGraph("Werknemer.withChefAndJobtitles"))
@@ -26,8 +26,10 @@ public class JpaDefaultWerknemerRepository implements WerknemerRepository{
     }
 
     @Override
-    public Optional<Werknemer> findCeo() {
-        return Optional.of(manager.createNamedQuery("Werknemer.findCeo", Werknemer.class).getSingleResult());
+    public Optional<Werknemer> findCeo() {                              //1st page opener
+        return Optional.of(manager.createNamedQuery("Werknemer.findCeo", Werknemer.class)
+                .setHint("javax.persistence.loadgraph", manager.createEntityGraph("Werknemer.withChefAndJobtitles"))
+                .getSingleResult());
     }
 
     @Override
@@ -36,7 +38,7 @@ public class JpaDefaultWerknemerRepository implements WerknemerRepository{
     }
 
     @Override
-    public List<Werknemer> findByJobtitelId(long jobtitelId) {
+    public List<Werknemer> findByJobtitelId(long jobtitelId) {      //looks for werknemers by jobtitel id; on the page jobtitel, when you pick the jobtitel
         return manager.createQuery("select w from Werknemer w where w.jobtitel.id = :jobtitel", Werknemer.class)
                 .setParameter("jobtitel", jobtitelId)
                 .setHint("javax.persistence.loadgraph", manager.createEntityGraph("Werknemer.withChefAndJobtitles"))

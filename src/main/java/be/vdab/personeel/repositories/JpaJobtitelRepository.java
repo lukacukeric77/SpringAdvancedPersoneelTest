@@ -18,13 +18,13 @@ private final EntityManager entityManager;
 
 
     @Override
-    public Optional<Jobtitel> findById(long id) {
+    public Optional<Jobtitel> findById(long id) {           // for title on jobtitels page
         return Optional.ofNullable(entityManager.find(Jobtitel.class, id));
     }
 
 
     @Override
-    public List<Jobtitel> findAll() {
+    public List<Jobtitel> findAll() {           // 1st page on jobtitel, to display all
         return entityManager.createQuery("select j from Jobtitel j order by j.naam", Jobtitel.class).getResultList();
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -97,7 +98,7 @@ public class Werknemer {
     }
 
     public Set<Werknemer> getOndergeschikten() {
-        return ondergeschikten;
+        return Collections.unmodifiableSet(ondergeschikten);
     }
 
     public BigDecimal getSalaris() {

@@ -21,6 +21,7 @@ public class JpaDefaultWerknemerRepository implements WerknemerRepository{
     public List<Werknemer> findByChefId(long chefId) {
         return manager.createNamedQuery("Werknemer.findByChefid", Werknemer.class)
                 .setParameter("idOfChef", chefId)
+                .setHint("javax.persistence.loadgraph", manager.createEntityGraph("Werknemer.withChefAndJobtitles"))
                 .getResultList();
     }
 
@@ -38,6 +39,7 @@ public class JpaDefaultWerknemerRepository implements WerknemerRepository{
     public List<Werknemer> findByJobtitelId(long jobtitelId) {
         return manager.createQuery("select w from Werknemer w where w.jobtitel.id = :jobtitel", Werknemer.class)
                 .setParameter("jobtitel", jobtitelId)
+                .setHint("javax.persistence.loadgraph", manager.createEntityGraph("Werknemer.withChefAndJobtitles"))
                 .getResultList();
     }
 }

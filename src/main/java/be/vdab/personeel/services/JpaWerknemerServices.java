@@ -19,12 +19,6 @@ public class JpaWerknemerServices implements WerknemerServices {
         this.repository = repository;
     }
 
-
-    @Override
-    public List<Werknemer> findByChefId(long chefId) {
-        return repository.findByChefId(chefId);
-    }
-
     @Override
     public Optional<Werknemer> findCeo() {
         return repository.findCeo();

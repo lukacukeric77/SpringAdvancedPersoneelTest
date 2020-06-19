@@ -6,13 +6,14 @@ import be.vdab.personeel.forms.RijksregisternummerForm;
 import be.vdab.personeel.services.JpaWerknemerServices;
 import be.vdab.personeel.sessions.Identificatie;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -104,10 +105,7 @@ public class WerknemerController {
 
     private ModelAndView processor(Optional<Werknemer> optionalWerknemer) {
         ModelAndView modelAndView = new ModelAndView("werknemer");
-        optionalWerknemer.ifPresent(werknemer -> {
-            modelAndView.addObject(werknemer);
-            modelAndView.addObject("ondergeschikten", werknemerServices.findByChefId(werknemer.getId()));
-        });
+        optionalWerknemer.ifPresent(modelAndView::addObject);
         return modelAndView;
     }
 

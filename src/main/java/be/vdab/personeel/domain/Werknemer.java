@@ -1,13 +1,10 @@
 package be.vdab.personeel.domain;
 
-import be.vdab.personeel.constraints.RijksregisterNr;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -15,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "werknemers")
-@NamedEntityGraph(name = "Werknemer.withChefAndJobtitles", attributeNodes = @NamedAttributeNode("chef"))
+@NamedEntityGraph(name = "Werknemer.withChef", attributeNodes = @NamedAttributeNode("chef"))
 public class Werknemer {
 
     @Id

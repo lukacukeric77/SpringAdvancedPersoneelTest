@@ -24,7 +24,6 @@ public class Werknemer {
     private String familienaam;
     private String voornaam;
     private String email;
-    @NotNull
     private Long rijksregisternr;
 
     //jobtitel relationship
@@ -173,6 +172,6 @@ public class Werknemer {
             throw new IllegalArgumentException();
         }
         BigDecimal factor = BigDecimal.ONE.add(ammount.divide(BigDecimal.valueOf(100)));
-        salaris = salaris.multiply(factor);
+        salaris = salaris.multiply(factor).setScale(2, RoundingMode.HALF_UP);
     }
 }

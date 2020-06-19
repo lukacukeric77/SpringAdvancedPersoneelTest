@@ -86,7 +86,6 @@ public class WerknemerController {
     public ModelAndView rijksregisterNummer(@PathVariable long id,
                                             @Valid RijksregisternummerForm form,
                                             Errors errors,
-                                            HttpSession session,
                                             RedirectAttributes attributes){
         Optional<Werknemer> optionalWerknemer = werknemerServices.findById(id);
         if (!optionalWerknemer.isPresent()){
@@ -97,7 +96,6 @@ public class WerknemerController {
             return new ModelAndView("rijksregisternummer").addObject(werknemer);
         }
         werknemerServices.wijzigRijksregisternummer(werknemer.getId(), form.getRijksregisternummer());
-        session.invalidate();
         attributes.addAttribute("id", werknemer.getId());
         return new ModelAndView("redirect:/werknemer/{id}");
     }

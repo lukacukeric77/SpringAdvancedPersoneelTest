@@ -18,7 +18,7 @@ label button{
     margin-top: 1em;
 }
 
-label span {
+label span, .fout {
     background-color: red;
     border-bottom-right-radius: 0.5em;
     border-top-left-radius: 0.5em;
@@ -29,6 +29,18 @@ label span {
     color: white;
     font-weight: bold;
 }
-label span:empty {
+label span:empty, .fout:empty {
     display: none;
 }
+
+#rij {
+    list-style-type: none;
+    padding-left: 0;
+    display: inline;
+}
+
+#rij li{
+    display: inline;
+}
+
+

@@ -4,6 +4,7 @@
 <body>
 <nav th:replace="fragments::menu"></nav>
 
+<h1 th:if="${werknemer}==null">Werknemer not found!</h1>
 <h1 th:if="${werknemer} != null">Opslag voor
     <span th:text="|${werknemer.voornaam} ${werknemer.familienaam}|"></span></h1>
 

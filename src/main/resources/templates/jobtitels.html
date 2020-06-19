@@ -6,7 +6,7 @@
 
 <h1>Jobtitels</h1>
 
-<ul th:each="jobtitle:${jobtitels}" th:object="${jobtitle}">
+<ul id="rij" th:each="jobtitle:${jobtitels}" th:object="${jobtitle}">
    <li><a th:href="@{/jobtitels/{id}(id=*{id})}" th:text="*{naam}"></a></li>
 </ul>
 
